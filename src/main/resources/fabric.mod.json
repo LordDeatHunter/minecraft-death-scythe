@@ -8,6 +8,8 @@
     "LordDeatHunter"
   ],
   "contact": {
+    "homepage": "https://legacy.curseforge.com/minecraft/mc-mods/reapers-scythe",
+    "issues": "https://github.com/LordDeatHunter/minecraft-death-scythe/issues",
     "sources": "https://github.com/LordDeatHunter/minecraft-death-scythe/"
   },
   "license": "MIT",
