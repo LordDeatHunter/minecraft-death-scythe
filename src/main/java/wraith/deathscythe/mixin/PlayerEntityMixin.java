@@ -21,7 +21,7 @@ public abstract class PlayerEntityMixin extends Entity {
 
     @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
     public void tryAttack(Entity target, CallbackInfo ci) {
-        if (this.world.isClient) return;
+        if (this.getWorld().isClient) return;
         PlayerEntity _this = (PlayerEntity) (Object) this;
         DamageSource source = getDamageSources().playerAttack(_this);
 
@@ -36,7 +36,7 @@ public abstract class PlayerEntityMixin extends Entity {
         if (_this.getMainHandStack().getItem() != ItemRegistry.get("reapers_scythe")) return;
         if (!target.damage(source, Float.MAX_VALUE)) {
             livingEntityAccessor.invokeApplyDamage(source, Float.MAX_VALUE);
-            livingEntityAccessor.invokeSetAttacker(_this);
+            ((LivingEntity) target).setAttacker(_this);
             livingEntityAccessor.setLastDamageTaken(Float.MAX_VALUE);
             ((LivingEntity) target).onDeath(source);
         }
