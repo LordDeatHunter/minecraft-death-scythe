@@ -23,7 +23,7 @@ public abstract class PlayerEntityMixin extends Entity {
     public void tryAttack(Entity target, CallbackInfo ci) {
         if (this.world.isClient) return;
         PlayerEntity _this = (PlayerEntity) (Object) this;
-        DamageSource source = DamageSource.player(_this);
+        DamageSource source = getDamageSources().playerAttack(_this);
 
         if (!(target instanceof LivingEntity)) {
             if (!target.damage(source, Float.MAX_VALUE)) {
@@ -31,13 +31,14 @@ public abstract class PlayerEntityMixin extends Entity {
             }
             return;
         }
+
         LivingEntityAccessor livingEntityAccessor = (LivingEntityAccessor) target;
         if (_this.getMainHandStack().getItem() != ItemRegistry.get("reapers_scythe")) return;
         if (!target.damage(source, Float.MAX_VALUE)) {
             livingEntityAccessor.invokeApplyDamage(source, Float.MAX_VALUE);
             livingEntityAccessor.invokeSetAttacker(_this);
             livingEntityAccessor.setLastDamageTaken(Float.MAX_VALUE);
-            this.world.sendEntityStatus(target, (byte) 2);
+            ((LivingEntity) target).onDeath(source);
         }
 
         ci.cancel();
