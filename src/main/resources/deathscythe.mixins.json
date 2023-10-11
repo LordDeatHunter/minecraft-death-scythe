@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "wraith.deathscythe.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "LivingEntityAccessor",
+    "PlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": []
+}
